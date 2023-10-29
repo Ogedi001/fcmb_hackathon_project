@@ -7,7 +7,7 @@ const { v4: uuidv4 } = require("uuid");
 
 //file modules
 const authRoutes = require("./routes/authRoutes");
-
+const profileRoutes = require('./routes/userProfileRoute')
 
 const app = express();
 
@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 
 // Using the routes
 app.use('/api/auth', authRoutes);
+app.use('/api/user',profileRoutes)
 
 
 //error handling middleware

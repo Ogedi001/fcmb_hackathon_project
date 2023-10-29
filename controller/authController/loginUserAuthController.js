@@ -20,7 +20,7 @@ const login = async (req, res) => {
     );
 
     const token = createJwTToken(user._id);
-    res.cookie("user_token", token, { httpOnly: true });
+   // res.cookie("user_token", token, { httpOnly: true });
     res.status(201).json({ message: "Login successful", user });
   } catch (error) {
     console.log(error);

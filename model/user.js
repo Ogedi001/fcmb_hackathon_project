@@ -1,7 +1,7 @@
 const mongoose = require("mongoose"),
   bcrypt = require("bcrypt"),
-    validator = require("validator");
-  const { v4: uuidv4 } = require("uuid");
+  validator = require("validator");
+const { v4: uuidv4 } = require("uuid");
 
 // Create a schema for the User table
 const userSchema = new mongoose.Schema({
@@ -85,11 +85,11 @@ const userSchema = new mongoose.Schema({
   ],
 
   account: {
-   // accountNumber: {
+    // accountNumber: {
     //   type: String, // best assume to be string
-    //   unique: true, 
-    //   required: [true,'account number is require'] 
-     //},
+    //   unique: true,
+    //   required: [true,'account number is require']
+    //},
     funds: {
       type: Number,
       default: 0,
@@ -149,18 +149,17 @@ function generateAccountNumber() {
   return onlyDigits.slice(0, 10); // Extract the first 10 digits
 }
 
-
 //mongoose pre save hook to modified data before its save in database
 userSchema.pre("save", async function (next) {
-    try {
-        //gen 10 digit acct number
-        //this.account.accountNumber = generateAccountNumber()
-      //convert the users email to lowercase
+  try {
+    //gen 10 digit acct number
+    //this.account.accountNumber = generateAccountNumber()
+    //convert the users email to lowercase
     this.email = this.email.toLowerCase();
-        const salt = await bcrypt.genSalt(10);
-        //hashed user password
-        const hashedPassword = await bcrypt.hash(this.password, salt);
-        
+    const salt = await bcrypt.genSalt(10);
+    //hashed user password
+    const hashedPassword = await bcrypt.hash(this.password, salt);
+
     this.password = hashedPassword;
     next();
   } catch (error) {
@@ -208,13 +207,10 @@ userSchema.statics.findUserByEmailOrUsername = function (
   });
 };
 
-
-
 // Create a model based on the schema
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
-
 
 //mongoose defines data as object. object has property and methods(actions)
 //we define schema with require properties and action to validate
