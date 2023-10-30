@@ -68,4 +68,8 @@ const searchBeneficiaries = async (req, res) => {
   }
 };
 
+const addTobeneficiary = (req, res) => {
+  
+}
+
 module.exports = { searchBeneficiaries, getAllBeneficiaries };

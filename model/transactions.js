@@ -1,3 +1,4 @@
+const mongoose = require("mongoose")
 const transactionSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -18,22 +19,22 @@ const transactionSchema = new mongoose.Schema({
 //     type: mongoose.Schema.Types.ObjectId,
 //     // Reference to another transaction or document
 //   },
-  paymentMethod: {
-    type: String,
+  //paymentMethod: {
+  //  type: String,
     // Payment method used in the transaction (e.g., credit card, bank transfer)
-  },
+  //},
 //   location: {
 //     type: String,
 //     // Location where the transaction occurred
 //   },
-  comments: {
-    type: String,
+  //comments: {
+    //type: String,
     // Additional notes or description for the transaction
-  },
-  currency: {
-    type: String,
+  //},
+//   currency: {
+//     type: String,
     // Currency used for the transaction (if multi-currency support is needed)
-  },
+ // },
   // ... other fields as per your system requirements
 });
 
