@@ -39,7 +39,7 @@ const regUsers = async (req, res) => {
     const token = createJwTToken(user._id);
 
     // Set the token in a cookie (Note: 'user' might not be the best name for the cookie)
-    // res.cookie("user_token", token, { httpOnly: true });
+     res.cookie("user_token", token, { httpOnly: true });
 
     // Send a success response
     res.status(201).json({ message: "User registered successfully", token , email, username,fullName,phoneNumber});

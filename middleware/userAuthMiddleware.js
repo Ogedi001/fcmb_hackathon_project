@@ -4,27 +4,27 @@ const jwt = require("jsonwebtoken");
 const users = require("./../model/user");
 
 
-
-  
+const JWT_SECRET = process.env.JWT;
 // Middleware function for user authentication
 const userAuth = (req, res, next) => {
   //access token
-    const token = req.cookies.token;
-    console.log('token', token)
+    const token = req.cookies.user_token;
+
+   
   //back to login if no token
   if (!token) {
-    res.redirect("/login");
+      return res.status(401).json({ error: "Unauthorized - No token found" });
     return;
   }
   //if token exist verify with jwt
-  jwt.verify(token, "JWT", (error, decoded) => {
+  jwt.verify(token, JWT_SECRET, (error, decoded) => {
     //if no error proceed to next
     if (!error) {
       next();
       return;
     }
     console.log(error);
-    res.redirect("/login");
+    return res.status(401).json({ error: "Unauthorized - Invalid token" });
   });
 };
 
@@ -33,7 +33,7 @@ const userAuth = (req, res, next) => {
 //this data(e.g a user data can be acess from the route)
 const checkUser = (req, res, next) => {
   //access token
-  const token = req.cookies.token;
+  const token = req.cookies.user_token;
 
   if (!token) {
     //if no user log in , set user data to null
@@ -43,7 +43,7 @@ const checkUser = (req, res, next) => {
   }
 
   //verify the token
-  jwt.verify(token, "JWT", async (error, decoded) => {
+  jwt.verify(token, JWT_SECRET, async (error, decoded) => {
     if (!error) {
       //find particular user log in
       const user = await users.findById(decoded.id);
