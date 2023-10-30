@@ -2,7 +2,7 @@
 
 
  //get All username in db
-const getAllBeneficiaries = async (req, res) => {
+const getAllUsers = async (req, res) => {
   try {
     const allBeneficiaries = await users.find();
     const allUsernames = allBeneficiaries.map((user) => user.username);
@@ -39,7 +39,7 @@ const getAllBeneficiaries = async (req, res) => {
 
 
 //search for a particular user or search user with autosuggest
-const searchBeneficiaries = async (req, res) => {
+const searchUsers = async (req, res) => {
   try {
     const { searchQuery, isAutoSuggest } = req.body;
 
@@ -72,4 +72,4 @@ const addTobeneficiary = (req, res) => {
   
 }
 
-module.exports = { searchBeneficiaries, getAllBeneficiaries };
+module.exports = { searchUsers, getAllUsers };

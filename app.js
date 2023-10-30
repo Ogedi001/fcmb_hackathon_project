@@ -7,8 +7,8 @@ const { v4: uuidv4 } = require("uuid");
 
 //file modules
 const authRoutes = require("./routes/authRoutes");
-const profileRoutes = require('./routes/userProfileRoute')
-const beneficiariesRoute = require('./routes/beneficiaryRoute')
+const profileRoutes = require("./routes/userProfileRoute");
+const searchUsersRoute = require("./routes/seachUseRouter");
 const addfundRoutes = require("./routes/addFundRoute");
 
 const app = express();
@@ -18,22 +18,26 @@ app.use(express.json()); // Body parser for JSON
 app.use(express.urlencoded({ extended: true })); // Body parser for URL-encoded data
 app.use(cookieParser());
 
-
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    
-    next()
-})
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  next();
+});
 
 // Using the routes
-app.use('/api/auth', authRoutes);
-app.use('/api/user', profileRoutes);
-app.use('/api/user', beneficiariesRoute)
+app.use("/api/auth", authRoutes);
+app.use("/api/user", profileRoutes);
+app.use("/api/user", searchUsersRoute);
 app.use("/api/user", addfundRoutes);
-
 
 //error handling middleware
 app.use((err, req, res, next) => {
@@ -41,29 +45,23 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
-
-
-
-
-
 const PORT = process.env.PORT || 3000;
 const DB_URL = process.env.DB_URL;
 
 const main = async () => {
-    try {
-        console.log("connecting to Database.....");
-        await mongoose.connect(DB_URL);
-        console.log("Database connected successfully");
+  try {
+    console.log("connecting to Database.....");
+    await mongoose.connect(DB_URL);
+    console.log("Database connected successfully");
 
-        // app.use("/", appRouter);
- 
+    // app.use("/", appRouter);
 
-        app.listen(PORT, () => {
-            console.log(`App is live at https://localhost:${PORT}`);
-        })
-    } catch (error) {
-        console.error("Error starting the server:", error);
-    };
-}
+    app.listen(PORT, () => {
+      console.log(`App is live at https://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error starting the server:", error);
+  }
+};
 
 main();
