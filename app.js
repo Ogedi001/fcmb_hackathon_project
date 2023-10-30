@@ -37,9 +37,10 @@ app.use((req, res, next) => {
 // Using the routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", profileRoutes);
+app.use("/api/user", addBeneficiary);
 app.use("/api/user", searchUsersRoute);
 app.use("/api/user", addfundRoutes);
-app.use("/api/user", addBeneficiary);
+
 
 //error handling middleware
 app.use((err, req, res, next) => {

@@ -4,6 +4,6 @@ const { addTobeneficiary} = require("../controller/beneficiiaresController/addTo
 
 // All profile routes here
 
-router.post("/addBeneficiary", userAuth, checkUser, addTobeneficiary);
+router.post("/addNewBeneficiary", userAuth, checkUser, addTobeneficiary);
 
 module.exports = router;
